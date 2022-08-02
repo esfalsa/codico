@@ -1,20 +1,21 @@
 import { NextPage } from "next";
-import { useAuth } from "../../components/AuthProvider";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
+import { useAuth } from "../../components/AuthProvider";
 import Input from "../../components/input";
 import Button from "../../components/button";
 
 const LoginPage: NextPage = () => {
 	const { auth, initializing, getRedirect, clearRedirect, user, error } =
 		useAuth();
-	const [nation, setNation] = useState<string>("");
-	const [checksum, setChecksum] = useState<string>("");
+	const [nation, setNation] = useState("");
+	const [checksum, setChecksum] = useState("");
 	const [verifying, setVerifying] = useState(false);
 	const mounted = useRef<boolean>();
 	const router = useRouter();
 
-	/* Guard if page is navigated away while sign in process is still active */
+	// Guard if page is navigated away while sign in process is still active
 	useEffect(() => {
 		mounted.current = true;
 
@@ -71,7 +72,10 @@ const LoginPage: NextPage = () => {
 				<div className="mt-2 space-y-1">
 					<Input
 						type="text"
-						className="w-full"
+						className={clsx(
+							"w-full",
+							error && "!border-rose-500 focus:!ring-rose-100"
+						)}
 						placeholder="Nation name"
 						value={nation}
 						required
@@ -87,7 +91,10 @@ const LoginPage: NextPage = () => {
 				<div className="space-y-1">
 					<Input
 						type="text"
-						className="w-full"
+						className={clsx(
+							"w-full",
+							error && "!border-rose-500 focus:!ring-rose-100"
+						)}
 						placeholder="Verification code"
 						required
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

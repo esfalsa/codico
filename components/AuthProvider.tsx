@@ -10,7 +10,7 @@ export const AuthContext = React.createContext<
 			auth: Auth;
 			initializing: boolean;
 			user: string | null;
-			error: { message: string } | null;
+			error: string | null;
 			setRedirect: (redirect: string) => void;
 			getRedirect: () => string | null;
 			clearRedirect: () => void;
@@ -21,15 +21,15 @@ export const AuthContext = React.createContext<
 AuthContext.displayName = "AuthContext";
 
 function setRedirect(redirect: string) {
-	window.sessionStorage.setItem(redirectKey, redirect);
+	sessionStorage.setItem(redirectKey, redirect);
 }
 
 function getRedirect(): string | null {
-	return window.sessionStorage.getItem(redirectKey);
+	return sessionStorage.getItem(redirectKey);
 }
 
 function clearRedirect() {
-	return window.sessionStorage.removeItem(redirectKey);
+	return sessionStorage.removeItem(redirectKey);
 }
 export function useAuth() {
 	const auth = React.useContext(AuthContext);
@@ -43,15 +43,11 @@ export function useAuth() {
 
 export function AuthProvider({ children }: { children: JSX.Element }) {
 	const [user, setUser] = useState<string | null>(null);
-	const [error, setError] = useState<{ message: string } | null>(null);
+	const [error, setError] = useState<string | null>(null);
 	const [initializing, setInitializing] = useState(true);
 
-	/*
-    NOTICE: this is not production ready code!
-    just a quick demo of resolving the initial user
-  */
 	useEffect(() => {
-		auth.resolveUser().onAuthStateChanged((user: string, error) => {
+		auth.resolveUser().onAuthStateChanged((user: string | null, error) => {
 			if (user) {
 				setUser(user);
 				setError(null);

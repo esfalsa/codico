@@ -1,4 +1,4 @@
-export type UserCB = (user: string, error?: any) => void;
+export type UserCB = (user: string | null, error?: string | null) => void;
 
 async function NSgetter(resource: URL | string) {
 	const endpoint = new URL(resource);
@@ -15,11 +15,12 @@ async function NSgetter(resource: URL | string) {
 
 export class Auth {
 	nation: string | null;
-	error: { message: string } | undefined;
+	error: string | null;
 	cb: UserCB;
 
 	constructor() {
 		this.nation = null;
+		this.error = null;
 		this.cb = () => {};
 	}
 
@@ -31,9 +32,9 @@ export class Auth {
 		};
 	}
 
-	protected onUserChange(user: string | null, error?: { message: string }) {
+	protected onUserChange(user: string | null, error?: string) {
 		if (this.cb) {
-			this.cb(user ?? "", error);
+			this.cb(user, error);
 		}
 	}
 
@@ -46,30 +47,31 @@ export class Auth {
 			).trim();
 
 			if (response !== "1") {
-				const error = { message: "Verification failed." };
-				this.error = error;
-				reject(error);
-				this.onUserChange(null, error);
-				return;
+				setTimeout(() => {
+					const error = "Verification failed.";
+					this.error = error;
+					reject(error);
+					this.onUserChange(null, error);
+					return;
+				}, 600);
+			} else {
+				this.nation = nation;
+				sessionStorage.setItem("user", this.nation);
+				this.onUserChange(this.nation);
+				resolve(this.nation);
 			}
-
-			this.nation = nation;
-
-			window.sessionStorage.setItem("user", this.nation);
-			this.onUserChange(this.nation);
-			resolve(this.nation);
 		});
 	}
 
 	signOut() {
-		window.sessionStorage.removeItem("user");
+		sessionStorage.removeItem("user");
 		this.nation = null;
 		this.onUserChange(this.nation);
 	}
 
 	resolveUser() {
 		if (window) {
-			const signedInUser = window.sessionStorage.getItem("user");
+			const signedInUser = sessionStorage.getItem("user");
 			if (signedInUser) {
 				this.nation = signedInUser;
 			}
@@ -77,7 +79,6 @@ export class Auth {
 			this.nation = null;
 		}
 		this.onUserChange(this.nation);
-
 		return this;
 	}
 }
