@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { ReactNode } from "react";
 import { clsx } from "clsx";
+import Link from "next/link";
 
 import styles from "../styles/Controls.module.css";
 
@@ -8,7 +9,7 @@ type Props = {
 	children?: ReactNode;
 	className?: string;
 	color?: string;
-	as?: "button" | "a" | "div";
+	href: string;
 	[key: string]: any;
 };
 
@@ -16,7 +17,7 @@ const Button: NextPage<Props> = ({
 	children,
 	className,
 	color,
-	as,
+	href,
 	...rest
 }) => {
 	if (color === "primary") {
@@ -25,12 +26,12 @@ const Button: NextPage<Props> = ({
 		className = clsx(className, styles.btn__default);
 	}
 
-	const Tag = as ?? "button";
-
 	return (
-		<Tag className={clsx(styles.btn, className)} {...rest}>
-			{children}
-		</Tag>
+		<Link href={href} className="outline-none">
+			<a className={clsx(styles.btn, className)} {...rest}>
+				{children}
+			</a>
+		</Link>
 	);
 };
 

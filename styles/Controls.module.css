@@ -1,0 +1,23 @@
+.btn {
+	@apply inline-flex items-center justify-center px-3 py-2 text-sm font-semibold transition duration-200 ease-in-out rounded-md shadow-md;
+}
+
+.btn__default {
+	@apply base hover:bg-zinc-900/5 dark:hover:bg-white/5 bg-transparent;
+}
+
+.btn__primary {
+	@apply base__focus hover:bg-teal-500 shadow-teal-400/25 text-white bg-teal-600;
+}
+
+.input {
+	@apply base text-ellipsis;
+}
+
+.base {
+	@apply base__focus text-zinc-900 ring-1 dark:ring-zinc-500 ring-zinc-300 dark:text-white inline-flex items-center justify-center px-3 py-2 text-sm transition duration-200 ease-in-out bg-transparent border-none rounded-md shadow;
+}
+
+.base__focus {
+	@apply focus:ring-4 focus:ring-teal-500/30 focus:outline-none;
+}
