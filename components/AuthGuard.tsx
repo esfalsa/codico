@@ -13,10 +13,6 @@ export function AuthGuard({ children }: { children: JSX.Element }) {
 		}
 	}, [initializing, router, user, setRedirect]);
 
-	if (initializing) {
-		return <h1>Application Loading</h1>;
-	}
-
 	if (!initializing && user) {
 		return <>{children}</>;
 	}

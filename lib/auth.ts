@@ -27,12 +27,14 @@ export class Auth {
 	onAuthStateChanged(cb: UserCB) {
 		this.cb = cb;
 
+		this.onUserChange(this.nation, this.error);
+
 		return () => {
 			this.cb = () => {};
 		};
 	}
 
-	protected onUserChange(user: string | null, error?: string) {
+	protected onUserChange(user: string | null, error?: string | null) {
 		if (this.cb) {
 			this.cb(user, error);
 		}
