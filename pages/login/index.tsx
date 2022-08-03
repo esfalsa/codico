@@ -4,7 +4,9 @@ import React, { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { useAuth } from "../../components/AuthProvider";
 
-const LoginPage: NextPage = () => {
+LoginPage.title = "Log In";
+
+export default function LoginPage() {
 	const { auth, initializing, getRedirect, clearRedirect, user, error } =
 		useAuth();
 	const [nation, setNation] = useState("");
@@ -118,6 +120,4 @@ const LoginPage: NextPage = () => {
 			</form>
 		</div>
 	);
-};
-
-export default LoginPage;
+}

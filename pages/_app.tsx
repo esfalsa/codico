@@ -12,27 +12,22 @@ function MyApp(props: AppProps) {
 		Component,
 		pageProps,
 	}: {
-		Component: NextPage & { requireAuth?: boolean };
+		Component: NextPage & { requireAuth?: boolean; title?: string };
 		pageProps: any;
 	} = props;
 
 	return (
-		<>
-			<Head>
-				<title>Codico</title>
-			</Head>
-			<Layout>
-				<AuthProvider>
-					{Component.requireAuth ? (
-						<AuthGuard>
-							<Component {...pageProps} />
-						</AuthGuard>
-					) : (
+		<Layout title={Component.title}>
+			<AuthProvider>
+				{Component.requireAuth ? (
+					<AuthGuard>
 						<Component {...pageProps} />
-					)}
-				</AuthProvider>
-			</Layout>
-		</>
+					</AuthGuard>
+				) : (
+					<Component {...pageProps} />
+				)}
+			</AuthProvider>
+		</Layout>
 	);
 }
 

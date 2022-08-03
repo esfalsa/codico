@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+Dashboard.title = "Dashboard";
+Dashboard.requireAuth = true;
+
 export default function Dashboard() {
 	return (
 		<div className="flex flex-col items-center justify-center w-full h-screen gap-4">
@@ -15,5 +18,3 @@ export default function Dashboard() {
 		</div>
 	);
 }
-
-Dashboard.requireAuth = true;

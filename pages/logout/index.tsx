@@ -2,7 +2,9 @@ import { useAuth } from "../../components/AuthProvider";
 import { useEffect } from "react";
 import Link from "next/link";
 
-export default function SignOut() {
+LogoutPage.title = "Log Out";
+
+export default function LogoutPage() {
 	const { auth } = useAuth();
 
 	useEffect(() => {
