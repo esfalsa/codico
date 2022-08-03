@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { useAuth } from "../../components/AuthProvider";
-import Input from "../../components/input";
-import Button from "../../components/button";
 
 const LoginPage: NextPage = () => {
 	const { auth, initializing, getRedirect, clearRedirect, user, error } =
@@ -65,16 +63,15 @@ const LoginPage: NextPage = () => {
 					Please verify your nation
 				</h1>
 				<p className="text-zinc-500 dark:text-zinc-400 sm:text-base text-sm">
-					Before we get started, we just need to verify who you are. And don’t
-					worry&nbsp;—&nbsp;you aren’t granting us access to any of your
-					information (yet).
+					Don’t worry, you aren’t granting us any access to your nation; we’re
+					just checking you’re signed in.
 				</p>
 				<div className="mt-2 space-y-1">
-					<Input
+					<input
 						type="text"
 						className={clsx(
-							"w-full",
-							error && "!border-rose-500 focus:!ring-rose-100"
+							"input input-bordered w-full sm:text-sm text-base",
+							error && "input-error"
 						)}
 						placeholder="Nation name"
 						value={nation}
@@ -89,13 +86,14 @@ const LoginPage: NextPage = () => {
 					</p>
 				</div>
 				<div className="space-y-1">
-					<Input
+					<input
 						type="text"
 						className={clsx(
-							"w-full",
-							error && "!border-rose-500 focus:!ring-rose-100"
+							"input input-bordered w-full sm:text-sm text-base",
+							error && "input-error"
 						)}
 						placeholder="Verification code"
+						value={checksum}
 						required
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 							setChecksum(e.currentTarget.value);
@@ -114,9 +112,9 @@ const LoginPage: NextPage = () => {
 						on NationStates.
 					</p>
 				</div>
-				<Button color="primary" className="w-full mt-4">
+				<button type="submit" className="btn btn-primary mt-2">
 					{verifying ? "Verifying…" : "Submit"}
-				</Button>
+				</button>
 			</form>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import LinkButton from "../../components/linkButton";
+import Link from "next/link";
 
 export default function Dashboard() {
 	return (
@@ -8,9 +8,9 @@ export default function Dashboard() {
 					Codico
 				</h1>
 				<p className="text-xl font-medium">Coming soon!</p>
-				<LinkButton color="primary" className="w-full mt-4" href="/">
-					Return Home
-				</LinkButton>
+				<Link href="/">
+					<a className="btn btn-primary w-full mt-4">Return Home</a>
+				</Link>
 			</div>
 		</div>
 	);

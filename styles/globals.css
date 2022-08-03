@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* DaisyUI Overrides */
+.btn {
+	@apply daisyui__reset_height py-2.5 text-base;
+}
+
+.input {
+	@apply daisyui__reset_height py-2.5;
+}
+
+.daisyui__reset_height {
+	@apply h-fit min-h-0;
+}

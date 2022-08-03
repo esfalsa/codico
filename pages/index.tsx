@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
-import Button from "../components/button";
 import { GitHub, LogIn } from "react-feather";
-import LinkButton from "../components/linkButton";
+import Link from "next/link";
 
 const Home: NextPage = () => {
 	return (
@@ -24,20 +23,17 @@ const Home: NextPage = () => {
 			</div>
 
 			<div className="flex flex-row mt-8 space-x-6">
-				<LinkButton
-					href="/login"
-					color="primary"
-					className="!px-4 !py-2 !text-lg"
-				>
-					<LogIn size={"1em"} className="mr-2" /> Sign In
-				</LinkButton>
-				<Button
-					as="a"
-					className="!px-4 !py-2 !text-lg"
+				<Link href="/login">
+					<a className="btn btn-primary text-lg">
+						<LogIn size={"1em"} className="mr-2" /> Sign In
+					</a>
+				</Link>
+				<a
 					href="https://github.com/esfalsa/codico"
+					className="btn btn-secondary text-lg"
 				>
 					<GitHub size={"1em"} className="mr-2" /> View on GitHub
-				</Button>
+				</a>
 			</div>
 		</div>
 	);

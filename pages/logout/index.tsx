@@ -1,6 +1,6 @@
 import { useAuth } from "../../components/AuthProvider";
 import { useEffect } from "react";
-import LinkButton from "../../components/linkButton";
+import Link from "next/link";
 
 export default function SignOut() {
 	const { auth } = useAuth();
@@ -16,10 +16,9 @@ export default function SignOut() {
 				<p className="text-zinc-500 dark:text-zinc-400 sm:text-base text-sm">
 					You have been logged out.
 				</p>
-
-				<LinkButton color="primary" className="w-full mt-4" href="/">
-					Return Home
-				</LinkButton>
+				<Link href="/">
+					<a className="btn btn-primary w-full mt-2">Return Home</a>
+				</Link>
 			</div>
 		</div>
 	);
