@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { useState } from "react";
-import SheetView from "../../components/SheetView";
+import { SheetView } from "../../components/SheetView";
 
 Dashboard.title = "Dashboard";
 
@@ -15,7 +14,7 @@ export default function Dashboard() {
 
 	return (
 		<div className="flex flex-col h-screen py-8">
-			<form className="flex flex-row flex-0 gap-4" onSubmit={handleSubmit}>
+			<form className="flex-0 flex flex-row gap-4" onSubmit={handleSubmit}>
 				<input
 					type="url"
 					className="input input-bordered flex-1 !text-base"
@@ -28,12 +27,12 @@ export default function Dashboard() {
 				/>
 				<button className="btn flex-0 !text-base">Submit</button>
 			</form>
-			<div className="mt-8 mb-4 flex-0">
-				<h2 className="text-2xl font-extrabold text-slate-900 dark:text-white">
+			<div className="flex-0 mt-8 mb-4">
+				<h2 className="text-slate-900 dark:text-white text-2xl font-extrabold">
 					Your Dispatches
 				</h2>
 			</div>
-			<div className="flex-1 w-full p-4 overflow-y-auto rounded-lg shadow-inner space-y-4 bg-slate-100 dark:bg-slate-700 sm:p-8">
+			<div className="bg-slate-100 dark:bg-slate-700 sm:p-8 flex-1 w-full p-4 space-y-4 overflow-y-auto rounded-lg shadow-inner">
 				<SheetView id={id} />
 			</div>
 		</div>
