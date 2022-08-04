@@ -13,13 +13,13 @@ export default function LogoutPage() {
 
 	return (
 		<div className="flex flex-col items-center justify-center h-screen">
-			<div className="sm:border-zinc-300 sm:p-8 sm:border sm:rounded-lg sm:shadow-lg dark:sm:border-zinc-600 flex flex-col max-w-md gap-4">
-				<h1 className="sm:text-2xl text-xl font-bold">Log out</h1>
-				<p className="text-zinc-500 dark:text-zinc-400 sm:text-base text-sm">
+			<div className="flex flex-col max-w-md sm:border-zinc-300 sm:p-8 sm:border sm:rounded-lg sm:shadow-lg dark:sm:border-zinc-600 gap-4">
+				<h1 className="text-xl font-bold sm:text-2xl">Log out</h1>
+				<p className="text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">
 					You have been logged out.
 				</p>
 				<Link href="/">
-					<a className="btn btn-primary w-full mt-2">Return Home</a>
+					<a className="w-full mt-2 btn btn-primary">Return Home</a>
 				</Link>
 			</div>
 		</div>

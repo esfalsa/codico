@@ -11,7 +11,7 @@ const Layout: NextPage<Props> = ({ children, title }) => {
 	return (
 		<>
 			<Head title={title} />
-			<main className="max-w-8xl sm:px-6 md:px-8 px-4 mx-auto">{children}</main>
+			<main className="px-4 mx-auto max-w-8xl sm:px-6 md:px-8">{children}</main>
 		</>
 	);
 };

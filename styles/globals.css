@@ -8,7 +8,7 @@
 }
 
 .input {
-	@apply daisyui__reset_height py-2.5;
+	@apply daisyui__reset_height py-2.5 sm:text-sm text-base;
 }
 
 .daisyui__reset_height {
