@@ -3,12 +3,16 @@ import clsx from "clsx";
 import { SheetSection } from "../../components/SheetSection";
 import { PublishSection } from "../../components/PublishSection";
 import { MonitorSection } from "../../components/MonitorSection";
+import { IdContext } from "../../components/IdContext";
 
 Dashboard.title = "Dashboard";
 
 export default function Dashboard() {
 	const [currentSection, setCurrentSection] = useState(0);
-	const [dispatches, setDispatches] = useState([]);
+	const [dispatches, setDispatches] = useState<Dispatch[]>([]);
+	const [user, setUser] = useState("");
+	const [nation, setNation] = useState("");
+	const [password, setPassword] = useState("");
 
 	const sections = [
 		{
@@ -32,9 +36,9 @@ export default function Dashboard() {
 		<main className="md:px-8 min-h-ca lg:px-16 max-w-8xl bg-slate-100 dark:bg-slate-900 flex-1 w-full mx-auto">
 			<div className="md:grid md:grid-cols-3 md:gap-6 md:py-16 md:px-0 h-screen px-4 py-8">
 				<div className="md:col-span-1 space-y-12">
-					{sections.map((section) => {
+					{sections.map((section, index) => {
 						return (
-							<div>
+							<div key={index}>
 								<p className="font-bold">{section.title}</p>
 								<p className="text-slate-500 dark:text-slate-400 text-sm">
 									{section.description}
@@ -45,7 +49,20 @@ export default function Dashboard() {
 				</div>
 				<div className="md:col-span-2 md:mt-0 dark:bg-slate-800 flex flex-col mt-8 overflow-hidden bg-white rounded-md shadow">
 					<div className="flex-1 p-4 overflow-scroll">
-						{sections[currentSection].section}
+						<IdContext.Provider
+							value={{
+								dispatches,
+								setDispatches,
+								user,
+								setUser,
+								nation,
+								setNation,
+								password,
+								setPassword,
+							}}
+						>
+							{sections[currentSection].section}
+						</IdContext.Provider>
 					</div>
 					<div className="bg-slate-50 dark:bg-slate-900/50 flex flex-row justify-between p-4">
 						<button

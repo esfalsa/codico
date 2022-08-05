@@ -1,8 +1,9 @@
-import { Disclosure } from "@headlessui/react";
-import { Key } from "react";
+import { Key, useContext, useEffect } from "react";
 import { ChevronDown } from "react-feather";
 import useSWR from "swr";
+import { Disclosure } from "@headlessui/react";
 const Handlebars = require("handlebars/dist/handlebars");
+import { IdContext } from "./IdContext";
 
 async function fetcher(resource: URL): Promise<any> {
 	const response = await fetch(resource);
@@ -69,25 +70,13 @@ function useSheet(id?: string) {
 	};
 }
 
-type Dispatch = {
-	Title?: string;
-	Category?: string;
-	Subcategory?: string;
-	Text?: string;
-};
-
-type Template = {
-	"Template Name": string;
-	"Template Content": string;
-};
-
-type Variable = {
-	"Variable Name": string;
-	"Variable Value": string;
-};
-
 export function SheetView({ id }: { id?: string }) {
 	const { data, isValidating, error } = useSheet(id);
+	const { setDispatches } = useContext(IdContext);
+
+	useEffect(() => {
+		setDispatches(data);
+	}, [data]);
 
 	if (!id) {
 		return (

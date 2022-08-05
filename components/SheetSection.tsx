@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SheetView } from "./SheetView";
+import { IdContext } from "./IdContext";
 
 export function SheetSection() {
-	const [url, setURL] = useState<string>("");
+	const [url, setURL] = useState("");
 	const [id, setId] = useState("");
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
