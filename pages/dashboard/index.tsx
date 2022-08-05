@@ -1,40 +1,75 @@
 import { useState } from "react";
-import { SheetView } from "../../components/SheetView";
+import clsx from "clsx";
+import { SheetSection } from "../../components/SheetSection";
+import { PublishSection } from "../../components/PublishSection";
+import { MonitorSection } from "../../components/MonitorSection";
 
 Dashboard.title = "Dashboard";
 
 export default function Dashboard() {
-	const [url, setURL] = useState<string>("");
-	const [id, setId] = useState("");
+	const [currentSection, setCurrentSection] = useState(0);
+	const [dispatches, setDispatches] = useState([]);
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		setId(url.match(/(?<=d\/).*?(?=\/|$)/g)![0]);
-	};
+	const sections = [
+		{
+			title: "Import",
+			description: "Load your dispatches from a spreadsheet.",
+			section: <SheetSection />,
+		},
+		{
+			title: "Publish",
+			description: "Post or update your dispatches on NationStates.",
+			section: <PublishSection />,
+		},
+		{
+			title: "Monitor",
+			description: "Check the status of your dispatches as they are deployed.",
+			section: <MonitorSection />,
+		},
+	];
 
 	return (
-		<div className="flex flex-col h-screen py-8">
-			<form className="flex-0 flex flex-row gap-4" onSubmit={handleSubmit}>
-				<input
-					type="url"
-					className="input input-bordered flex-1 !text-base"
-					placeholder="Spreadsheet URL"
-					required
-					value={url}
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-						setURL(e.currentTarget.value);
-					}}
-				/>
-				<button className="btn flex-0 !text-base">Submit</button>
-			</form>
-			<div className="flex-0 mt-8 mb-4">
-				<h2 className="text-slate-900 dark:text-white text-2xl font-extrabold">
-					Your Dispatches
-				</h2>
+		<main className="md:px-8 min-h-ca lg:px-16 max-w-8xl bg-slate-100 dark:bg-slate-900 flex-1 w-full mx-auto">
+			<div className="md:grid md:grid-cols-3 md:gap-6 md:py-16 md:px-0 h-screen px-4 py-8">
+				<div className="md:col-span-1 space-y-12">
+					{sections.map((section) => {
+						return (
+							<div>
+								<p className="font-bold">{section.title}</p>
+								<p className="text-slate-500 dark:text-slate-400 text-sm">
+									{section.description}
+								</p>
+							</div>
+						);
+					})}
+				</div>
+				<div className="md:col-span-2 md:mt-0 dark:bg-slate-800 flex flex-col mt-8 overflow-hidden bg-white rounded-md shadow">
+					<div className="flex-1 p-4 overflow-scroll">
+						{sections[currentSection].section}
+					</div>
+					<div className="bg-slate-50 dark:bg-slate-900/50 flex flex-row justify-between p-4">
+						<button
+							className={clsx(
+								"btn btn-secondary",
+								currentSection == 0 && "btn-disabled"
+							)}
+							onClick={() => {
+								setCurrentSection(currentSection - 1);
+							}}
+						>
+							Back
+						</button>
+						<button
+							className="btn btn-primary"
+							onClick={() => {
+								setCurrentSection(currentSection + 1);
+							}}
+						>
+							Continue
+						</button>
+					</div>
+				</div>
 			</div>
-			<div className="bg-slate-100 dark:bg-slate-700 sm:p-8 flex-1 w-full p-4 space-y-4 overflow-y-auto rounded-lg shadow-inner">
-				<SheetView id={id} />
-			</div>
-		</div>
+		</main>
 	);
 }
