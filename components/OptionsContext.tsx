@@ -1,6 +1,8 @@
 import { createContext } from "react";
 
 type ContextProps = {
+	url: string;
+	setUrl: (url: string) => void;
 	dispatches: Dispatch[];
 	setDispatches: (dispatches: Dispatch[]) => void;
 	user: string;
@@ -11,7 +13,9 @@ type ContextProps = {
 	setPassword: (user: string) => void;
 };
 
-export const IdContext = createContext<ContextProps>({
+export const OptionsContext = createContext<ContextProps>({
+	url: "",
+	setUrl: (url: string) => {},
 	dispatches: [],
 	setDispatches: (dispatches: Dispatch[]) => {},
 	user: "",

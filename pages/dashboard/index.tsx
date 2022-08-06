@@ -1,34 +1,46 @@
 import { useState } from "react";
-import clsx from "clsx";
 import { SheetSection } from "../../components/SheetSection";
 import { PublishSection } from "../../components/PublishSection";
 import { MonitorSection } from "../../components/MonitorSection";
-import { IdContext } from "../../components/IdContext";
+import { OptionsContext } from "../../components/OptionsContext";
 
 Dashboard.title = "Dashboard";
 
 export default function Dashboard() {
 	const [currentSection, setCurrentSection] = useState(0);
+	const [url, setUrl] = useState("");
 	const [dispatches, setDispatches] = useState<Dispatch[]>([]);
 	const [user, setUser] = useState("");
 	const [nation, setNation] = useState("");
 	const [password, setPassword] = useState("");
 
+	const continueHandler = () => {
+		setCurrentSection(currentSection + 1);
+	};
+	const backHandler = () => {
+		setCurrentSection(currentSection - 1);
+	};
+
 	const sections = [
 		{
 			title: "Import",
 			description: "Load your dispatches from a spreadsheet.",
-			section: <SheetSection />,
+			section: <SheetSection continueHandler={continueHandler} />,
 		},
 		{
 			title: "Publish",
 			description: "Post or update your dispatches on NationStates.",
-			section: <PublishSection />,
+			section: (
+				<PublishSection
+					continueHandler={continueHandler}
+					backHandler={backHandler}
+				/>
+			),
 		},
 		{
 			title: "Monitor",
 			description: "Check the status of your dispatches as they are deployed.",
-			section: <MonitorSection />,
+			section: <MonitorSection backHandler={backHandler} />,
 		},
 	];
 
@@ -38,54 +50,37 @@ export default function Dashboard() {
 				<div className="md:col-span-1 space-y-12">
 					{sections.map((section, index) => {
 						return (
-							<div key={index}>
+							<button
+								key={index}
+								className="block text-left"
+								onClick={() => {
+									setCurrentSection(index);
+								}}
+							>
 								<p className="font-bold">{section.title}</p>
 								<p className="text-slate-500 dark:text-slate-400 text-sm">
 									{section.description}
 								</p>
-							</div>
+							</button>
 						);
 					})}
 				</div>
-				<div className="md:col-span-2 md:mt-0 dark:bg-slate-800 flex flex-col mt-8 overflow-hidden bg-white rounded-md shadow">
-					<div className="flex-1 p-4 overflow-scroll">
-						<IdContext.Provider
-							value={{
-								dispatches,
-								setDispatches,
-								user,
-								setUser,
-								nation,
-								setNation,
-								password,
-								setPassword,
-							}}
-						>
-							{sections[currentSection].section}
-						</IdContext.Provider>
-					</div>
-					<div className="bg-slate-50 dark:bg-slate-900/50 flex flex-row justify-between p-4">
-						<button
-							className={clsx(
-								"btn btn-secondary",
-								currentSection == 0 && "btn-disabled"
-							)}
-							onClick={() => {
-								setCurrentSection(currentSection - 1);
-							}}
-						>
-							Back
-						</button>
-						<button
-							className="btn btn-primary"
-							onClick={() => {
-								setCurrentSection(currentSection + 1);
-							}}
-						>
-							Continue
-						</button>
-					</div>
-				</div>
+				<OptionsContext.Provider
+					value={{
+						url,
+						setUrl,
+						dispatches,
+						setDispatches,
+						user,
+						setUser,
+						nation,
+						setNation,
+						password,
+						setPassword,
+					}}
+				>
+					{sections[currentSection].section}
+				</OptionsContext.Provider>
 			</div>
 		</main>
 	);

@@ -3,7 +3,7 @@ import { ChevronDown } from "react-feather";
 import useSWR from "swr";
 import { Disclosure } from "@headlessui/react";
 const Handlebars = require("handlebars/dist/handlebars");
-import { IdContext } from "./IdContext";
+import { OptionsContext } from "./OptionsContext";
 
 async function fetcher(resource: URL): Promise<any> {
 	const response = await fetch(resource);
@@ -72,7 +72,7 @@ function useSheet(id?: string) {
 
 export function SheetView({ id }: { id?: string }) {
 	const { data, isValidating, error } = useSheet(id);
-	const { setDispatches } = useContext(IdContext);
+	const { setDispatches } = useContext(OptionsContext);
 
 	useEffect(() => {
 		setDispatches(data);
