@@ -13,9 +13,11 @@ export default function Dashboard() {
 	const [user, setUser] = useState("");
 	const [nation, setNation] = useState("");
 	const [password, setPassword] = useState("");
+	const [completedSections, setCompletedSections] = useState(0);
 
 	const continueHandler = () => {
 		setCurrentSection(currentSection + 1);
+		setCompletedSections(completedSections + 1);
 	};
 	const backHandler = () => {
 		setCurrentSection(currentSection - 1);
@@ -54,7 +56,9 @@ export default function Dashboard() {
 								key={index}
 								className="block text-left"
 								onClick={() => {
-									setCurrentSection(index);
+									if (index <= completedSections) {
+										setCurrentSection(index);
+									}
 								}}
 							>
 								<p className="font-bold">{section.title}</p>
