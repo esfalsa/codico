@@ -7,7 +7,6 @@ const Handlebars = require("handlebars/dist/handlebars");
 
 async function fetcher(resource: URL): Promise<any> {
 	const response = await fetch(resource);
-
 	return response.json();
 }
 

@@ -1,8 +1,8 @@
 type Dispatch = {
-	Title?: string;
-	Category?: string;
-	Subcategory?: string;
-	Text?: string;
+	Title: string;
+	Category: string;
+	Subcategory: string;
+	Text: string;
 };
 
 type Template = {

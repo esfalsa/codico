@@ -25,7 +25,6 @@ export function PublishSection({
 				}}
 			>
 				{({ values }) => {
-					console.log(values);
 					return (
 						<Form className="flex flex-col h-full">
 							<div className="flex flex-col flex-1 h-full gap-4 p-4 overflow-scroll">
