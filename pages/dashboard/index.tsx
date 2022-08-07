@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SheetSection } from "../../components/SheetSection";
 import { PublishSection } from "../../components/PublishSection";
 import { MonitorSection } from "../../components/MonitorSection";
+import { WelcomeSection } from "../../components/WelcomeSection";
 import { Form, Formik } from "formik";
 
 Dashboard.title = "Dashboard";
@@ -11,6 +12,11 @@ export default function Dashboard() {
 	const [completedSteps, setCompletedSteps] = useState(0);
 
 	const steps = [
+		{
+			title: "Welcome",
+			description: "Learn how to use Codico.",
+			section: <WelcomeSection />,
+		},
 		{
 			title: "Import",
 			description: "Load your dispatches from a spreadsheet.",

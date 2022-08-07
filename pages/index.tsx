@@ -8,7 +8,7 @@ const Home: NextPage = () => {
 			<div className="flex flex-col justify-center h-screen">
 				<div className="space-y-2">
 					<div className="shadow-medium max-w-fit px-3 py-2 text-xl font-bold text-white uppercase bg-teal-500 rounded-lg">
-						Coming Soon
+						Open Alpha
 					</div>
 					<div className="md:text-7xl lg:text-8xl text-6xl font-extrabold tracking-tight">
 						<h1>Your dispatches.</h1>
