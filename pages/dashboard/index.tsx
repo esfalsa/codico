@@ -43,9 +43,9 @@ export default function Dashboard() {
 	};
 
 	return (
-		<main className="md:px-8 min-h-ca lg:px-16 max-w-8xl bg-slate-100 dark:bg-slate-900 flex-1 w-full mx-auto">
-			<div className="md:grid md:grid-cols-3 md:gap-6 md:py-16 md:px-0 h-screen px-4 py-8">
-				<div className="md:col-span-1 space-y-12">
+		<main className="md:px-8 lg:px-16 max-w-8xl bg-slate-100 dark:bg-slate-900 flex-1 w-full min-h-screen mx-auto">
+			<div className="md:grid md:grid-cols-3 md:gap-6 md:py-16 md:px-0 md:h-screen px-4 py-8">
+				<div className="md:col-span-1 md:space-y-12 space-y-4">
 					{steps.map((section, index) => {
 						return (
 							<button

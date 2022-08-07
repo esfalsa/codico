@@ -43,7 +43,7 @@ export function MonitorSection() {
 			</div>
 		),
 		queued: (
-			<div className="bg-slate-100 dark:bg-slate-900/50 rounded-r-md dark:text-slate-500 text-slate-600 flex-0 flex flex-row items-center gap-1 p-2 font-medium">
+			<div className="dark:text-slate-500 text-slate-600 flex-0 flex flex-row items-center gap-1 p-2 font-medium">
 				Queued
 			</div>
 		),
