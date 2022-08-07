@@ -3,7 +3,6 @@ import { ChevronDown } from "react-feather";
 import useSWR from "swr";
 import { Disclosure } from "@headlessui/react";
 const Handlebars = require("handlebars/dist/handlebars");
-import { OptionsContext } from "./OptionsContext";
 
 export function SheetView({
 	dispatches,
@@ -14,7 +13,13 @@ export function SheetView({
 	error?: string;
 	isValidating: boolean;
 }) {
-	if (error) return <div>Failed to load.</div>;
+	if (error)
+		return (
+			<div>
+				Failed to load. Make sure anyone with the link can view your
+				spreadsheet, and that you copied the entire spreadsheet URL.
+			</div>
+		);
 
 	if (!dispatches || !dispatches.length) {
 		return (

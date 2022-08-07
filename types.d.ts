@@ -14,3 +14,11 @@ type Variable = {
 	"Variable Name": string;
 	"Variable Value": string;
 };
+
+type FormFields = {
+	url: string;
+	dispatches: Dispatch[];
+	user: string;
+	nation: string;
+	password: string;
+};

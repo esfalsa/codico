@@ -2,62 +2,52 @@ import { useState } from "react";
 import { SheetSection } from "../../components/SheetSection";
 import { PublishSection } from "../../components/PublishSection";
 import { MonitorSection } from "../../components/MonitorSection";
-import { OptionsContext } from "../../components/OptionsContext";
+import { Form, Formik } from "formik";
 
 Dashboard.title = "Dashboard";
 
 export default function Dashboard() {
-	const [currentSection, setCurrentSection] = useState(0);
-	const [url, setUrl] = useState("");
-	const [dispatches, setDispatches] = useState<Dispatch[]>([]);
-	const [user, setUser] = useState("");
-	const [nation, setNation] = useState("");
-	const [password, setPassword] = useState("");
-	const [completedSections, setCompletedSections] = useState(0);
+	const [step, setStep] = useState(0);
+	const [completedSteps, setCompletedSteps] = useState(0);
 
-	const continueHandler = () => {
-		setCurrentSection(currentSection + 1);
-		setCompletedSections(completedSections + 1);
-	};
-	const backHandler = () => {
-		setCurrentSection(currentSection - 1);
-	};
-
-	const sections = [
+	const steps = [
 		{
 			title: "Import",
 			description: "Load your dispatches from a spreadsheet.",
-			section: <SheetSection continueHandler={continueHandler} />,
+			section: <SheetSection />,
 		},
 		{
 			title: "Publish",
 			description: "Post or update your dispatches on NationStates.",
-			section: (
-				<PublishSection
-					continueHandler={continueHandler}
-					backHandler={backHandler}
-				/>
-			),
+			section: <PublishSection />,
 		},
 		{
 			title: "Monitor",
 			description: "Check the status of your dispatches as they are deployed.",
-			section: <MonitorSection backHandler={backHandler} />,
+			section: <MonitorSection />,
 		},
 	];
+
+	const initialValues: FormFields = {
+		url: "",
+		dispatches: [],
+		user: "",
+		nation: "",
+		password: "",
+	};
 
 	return (
 		<main className="md:px-8 min-h-ca lg:px-16 max-w-8xl bg-slate-100 dark:bg-slate-900 flex-1 w-full mx-auto">
 			<div className="md:grid md:grid-cols-3 md:gap-6 md:py-16 md:px-0 h-screen px-4 py-8">
 				<div className="md:col-span-1 space-y-12">
-					{sections.map((section, index) => {
+					{steps.map((section, index) => {
 						return (
 							<button
 								key={index}
 								className="block text-left"
 								onClick={() => {
-									if (index <= completedSections) {
-										setCurrentSection(index);
+									if (index <= completedSteps) {
+										setStep(index);
 									}
 								}}
 							>
@@ -69,22 +59,47 @@ export default function Dashboard() {
 						);
 					})}
 				</div>
-				<OptionsContext.Provider
-					value={{
-						url,
-						setUrl,
-						dispatches,
-						setDispatches,
-						user,
-						setUser,
-						nation,
-						setNation,
-						password,
-						setPassword,
+				<Formik
+					initialValues={initialValues}
+					onSubmit={() => {
+						if (step === steps.length - 1) {
+							// do something on last step
+						} else {
+							setStep((step) => step + 1);
+							setCompletedSteps((step) => step + 1);
+						}
 					}}
 				>
-					{sections[currentSection].section}
-				</OptionsContext.Provider>
+					<Form
+						autoComplete="off"
+						className="md:col-span-2 md:mt-0 dark:bg-slate-800 flex flex-col mt-8 overflow-hidden bg-white rounded-md shadow"
+					>
+						<div className="flex flex-col flex-1 h-full gap-4 p-4 overflow-scroll">
+							{steps[step].section}
+						</div>
+						<div className="bg-slate-50 dark:bg-slate-900/50 flex flex-row justify-between p-4">
+							{step > 0 ? (
+								<button
+									type="button"
+									className="btn btn-secondary"
+									onClick={() => {
+										setStep((step) => step - 1);
+										setCompletedSteps((step) => step - 1);
+									}}
+								>
+									Back
+								</button>
+							) : (
+								<div />
+							)}
+							{step < steps.length - 1 && (
+								<button type="submit" className="btn btn-primary">
+									Continue
+								</button>
+							)}
+						</div>
+					</Form>
+				</Formik>
 			</div>
 		</main>
 	);
